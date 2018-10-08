@@ -624,6 +624,12 @@ void sys_unlock_tcpip_core(void);
    ------------------------------------
 */
 
+#ifdef LWIP_COMPAT_SOCKETS
+#undef LWIP_COMPAT_SOCKETS
+#endif
+
+#define LWIP_COMPAT_SOCKETS 2
+
 /**
  * LWIP_POSIX_SOCKETS_IO_NAMES==1: Enable POSIX-style sockets functions names.
  * Disable this option if you use a POSIX operating system that uses the same
