@@ -722,7 +722,7 @@ void sys_unlock_tcpip_core(void);
  * LWIP_IPV6==1: Enable IPv6
  */
 #ifndef LWIP_IPV6
-#define LWIP_IPV6                       0
+#define LWIP_IPV6                       1
 #endif
 
 /*
