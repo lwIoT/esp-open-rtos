@@ -18,7 +18,7 @@
 static const uint32_t pp_zeros[8];
 void *_ppz20(size_t n)
 {
-    return &pp_zeros;
+    return (void*) &pp_zeros;
 }
 
 #if OPEN_LIBPP_PP
