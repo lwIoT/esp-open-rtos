@@ -261,6 +261,9 @@ size: $(PROGRAM_OUT)
 test: flash
 	$(FILTEROUTPUT) --port $(ESPPORT) --baud 115200 --elf $(PROGRAM_OUT)
 
+monitor:
+	$(FILTEROUTPUT) --port $(ESPPORT) --baud 115200 --elf $(PROGRAM_OUT)
+
 # the rebuild target is written like this so it can be run in a parallel build
 # environment without causing weird side effects
 rebuild:
