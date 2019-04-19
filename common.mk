@@ -115,6 +115,7 @@ $(1)_CPPFLAGS ?= $(CPPFLAGS)
 $(1)_CFLAGS ?= $(CFLAGS)
 $(1)_CXXFLAGS ?= $(CXXFLAGS)
 $(1)_CC_BASE = $(Q) $(CC) $$(addprefix -I,$$(INC_DIRS)) $$(addprefix -I,$$($(1)_INC_DIR)) $$($(1)_CPPFLAGS)
+$(1)_CXX_BASE = $(Q) $(CXX) $$(addprefix -I,$$(INC_DIRS)) $$(addprefix -I,$$($(1)_INC_DIR)) $$($(1)_CPPFLAGS)
 $(1)_AR = $(call lc,$(BUILD_DIR)$(1).a)
 
 $$($(1)_OBJ_DIR)%.o: $$($(1)_REAL_ROOT)%.c $$($(1)_MAKEFILE) $(wildcard $(ROOT)*.mk) | $$($(1)_SRC_DIR)
@@ -126,8 +127,8 @@ $$($(1)_OBJ_DIR)%.o: $$($(1)_REAL_ROOT)%.c $$($(1)_MAKEFILE) $(wildcard $(ROOT)*
 $$($(1)_OBJ_DIR)%.o: $$($(1)_REAL_ROOT)%.cpp $$($(1)_MAKEFILE) $(wildcard $(ROOT)*.mk) | $$($(1)_SRC_DIR)
 	$(vecho) "C++ $$<"
 	$(Q) mkdir -p $$(dir $$@)
-	$$($(1)_CC_BASE) $$($(1)_CXXFLAGS) -c $$< -o $$@
-	$$($(1)_CC_BASE) $$($(1)_CXXFLAGS) -MM -MT $$@ -MF $$(@:.o=.d) $$<
+	$$($(1)_CXX_BASE) $$($(1)_CXXFLAGS) -c $$< -o $$@
+	$$($(1)_CXX_BASE) $$($(1)_CXXFLAGS) -MM -MT $$@ -MF $$(@:.o=.d) $$<
 
 $$($(1)_OBJ_DIR)%.o: $$($(1)_REAL_ROOT)%.S $$($(1)_MAKEFILE) $(wildcard $(ROOT)*.mk) | $$($(1)_SRC_DIR)
 	$(vecho) "AS $$<"

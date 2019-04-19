@@ -54,6 +54,7 @@ CPP = $(CROSS)cpp
 LD = $(CROSS)gcc
 NM = $(CROSS)nm
 C++ = $(CROSS)g++
+CXX = $(CROSS)g++
 SIZE = $(CROSS)size
 OBJCOPY = $(CROSS)objcopy
 OBJDUMP = $(CROSS)objdump
@@ -88,9 +89,9 @@ WARNINGS_AS_ERRORS ?= 0
 # Common flags for both C & C++_
 C_CXX_FLAGS ?= -Wall -Wl,-EL -nostdlib $(EXTRA_C_CXX_FLAGS)
 # Flags for C only
-CFLAGS		?= $(C_CXX_FLAGS) -std=gnu99 $(EXTRA_CFLAGS)
+CFLAGS		?= $(C_CXX_FLAGS) -std=gnu11 $(EXTRA_CFLAGS)
 # Flags for C++ only
-CXXFLAGS	?= $(C_CXX_FLAGS) -std=c++0x -fno-exceptions -fno-rtti $(EXTRA_CXXFLAGS)
+CXXFLAGS	?= $(C_CXX_FLAGS) -std=gnu++14 -fno-exceptions -fno-rtti $(EXTRA_CXXFLAGS)
 
 # these aren't all technically preprocesor args, but used by all 3 of C, C++, assembler
 CPPFLAGS	+= -mlongcalls -mtext-section-literals
@@ -104,21 +105,6 @@ endif
 ifeq ($(SPLIT_SECTIONS),1)
   C_CXX_FLAGS += -ffunction-sections -fdata-sections
   LDFLAGS += -Wl,-gc-sections
-endif
-
-ifeq ($(FLAVOR),debug)
-    C_CXX_FLAGS += -g -O0
-    LDFLAGS += -g -O0
-else ifeq ($(FLAVOR),sdklike)
-    # These are flags intended to produce object code as similar as possible to
-    # the output of the compiler used to build the SDK libs (for comparison of
-    # disassemblies when coding replacement routines).  It is not normally
-    # intended to be used otherwise.
-    CFLAGS += -O2 -Os -fno-inline -fno-ipa-cp -fno-toplevel-reorder -fno-caller-saves -fconserve-stack
-    LDFLAGS += -O2
-else
-    C_CXX_FLAGS += -g -O2
-    LDFLAGS += -g -O2
 endif
 
 GITSHORTREV=\"$(shell cd $(ROOT); git rev-parse --short -q HEAD 2> /dev/null)\"
